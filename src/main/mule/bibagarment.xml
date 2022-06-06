@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="5e47b3ec-9420-4325-93e8-593430ca4d77" >
+		<http:listener-connection host="0.0.0.0" port="8081" />
+	</http:listener-config>
+	<flow name="bibagarmentFlow" doc:id="39f179f1-e21b-46bb-a3df-c9952cb8d2d4" >
+		<http:listener doc:name="Listener" doc:id="7fa049c3-1150-4786-abfe-3da15f735149" config-ref="HTTP_Listener_config" path="/test"/>
+		<logger level="INFO" doc:name="Logger" doc:id="eb10d485-0779-4b82-9786-0fc2ae90bcfd" message="start flow"/>
+		<ee:transform doc:name="Transform Message" doc:id="e18fa91b-1bd2-41c1-ba18-8216dc4fa950" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+"only for ladies" ++ " " ++ "the company uses of high quality of fabric" ++ " " ++ "biba provide the product all over the world include all over india"]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<logger level="INFO" doc:name="Logger" doc:id="093a8d40-41c2-45c4-a1f9-f3e5617da23d" message="end flow"/>
+	</flow>
+</mule>
